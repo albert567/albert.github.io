@@ -20,6 +20,16 @@
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
   <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
 
 
 
@@ -81,7 +91,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Albert's Blog" type="application/atom+xml">
 
 
 
@@ -89,13 +99,13 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://yoursite.com/categories/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:title" content="categories">
+<meta property="og:url" content="http://altctrl.cn/categories/index.html">
+<meta property="og:site_name" content="Albert&#39;s Blog">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-27T02:41:03.263Z">
+<meta property="og:updated_time" content="2019-02-27T06:41:33.930Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类">
+<meta name="twitter:title" content="categories">
 
 
 
@@ -125,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/">
+  <link rel="canonical" href="http://altctrl.cn/categories/">
 
 
 
 
 
-  <title>分类 | Hexo</title>
+  <title>categories | Albert's Blog</title>
   
 
 
@@ -162,7 +172,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">Albert's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -228,7 +238,7 @@
       
         
         <li class="menu-item menu-item-tools">
-          <a href="/categories/工具资源/" rel="section">
+          <a href="/tools/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-briefcase"></i> <br>
             
@@ -304,7 +314,7 @@
     <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">分类</h1>
+	<h1 class="post-title" itemprop="name headline">categories</h1>
 
 
 
@@ -370,9 +380,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="John Doe">
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Albert">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-author-name" itemprop="name">Albert</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -383,7 +393,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -458,8 +468,9 @@
             </div>
           
 
-          
-
+          <div id="music163player">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28285910&auto=1&height=66"></iframe>
+</div>
         </div>
       </section>
 
@@ -488,7 +499,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Albert</span>
 
   
     <span class="post-meta-divider">|</span>
@@ -1001,3 +1012,5 @@
 <script type="text/javascript" src="/js/src/custom.js"></script>
 </body>
 </html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

@@ -20,6 +20,16 @@
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
   <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
 
 
 
@@ -81,7 +91,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Albert's Blog" type="application/atom+xml">
 
 
 
@@ -89,12 +99,12 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2019/02/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:title" content="Albert&#39;s Blog">
+<meta property="og:url" content="http://altctrl.cn/archives/2019/02/index.html">
+<meta property="og:site_name" content="Albert&#39;s Blog">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Albert&#39;s Blog">
 
 
 
@@ -124,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2019/02/">
+  <link rel="canonical" href="http://altctrl.cn/archives/2019/02/">
 
 
 
 
 
-  <title>Archive | Hexo</title>
+  <title>Archive | Albert's Blog</title>
   
 
 
@@ -161,7 +171,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">Albert's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -227,7 +237,7 @@
       
         
         <li class="menu-item menu-item-tools">
-          <a href="/categories/工具资源/" rel="section">
+          <a href="/tools/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-briefcase"></i> <br>
             
@@ -309,7 +319,7 @@
         
           
         
-        Um..! 4 posts in total. Keep on posting.
+        Um..! 3 posts in total. Keep on posting.
       </span>
 
       
@@ -343,41 +353,6 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated" datetime="2019-02-27T12:52:46+08:00" content="2019-02-27">
-          02-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/02/27/categories-工具资源/" itemprop="url">
-              
-                <span itemprop="name">categories/工具资源</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-27T12:51:28+08:00" content="2019-02-27">
           02-27
         </time>
       </div>
@@ -499,9 +474,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="John Doe">
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Albert">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-author-name" itemprop="name">Albert</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -512,7 +487,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -587,8 +562,9 @@
             </div>
           
 
-          
-
+          <div id="music163player">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28285910&auto=1&height=66"></iframe>
+</div>
         </div>
       </section>
 
@@ -617,7 +593,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Albert</span>
 
   
     <span class="post-meta-divider">|</span>
@@ -1126,3 +1102,5 @@
 <script type="text/javascript" src="/js/src/custom.js"></script>
 </body>
 </html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

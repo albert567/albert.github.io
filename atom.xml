@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>Albert&#39;s Blog</title>
   
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://altctrl.cn/"/>
   <updated>2019-02-27T04:52:46.657Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://altctrl.cn/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>Albert</name>
     
   </author>
   
@@ -18,8 +18,8 @@
   
   <entry>
     <title>about</title>
-    <link href="http://yoursite.com/2019/02/27/about/"/>
-    <id>http://yoursite.com/2019/02/27/about/</id>
+    <link href="http://altctrl.cn/2019/02/27/about/"/>
+    <id>http://altctrl.cn/2019/02/27/about/</id>
     <published>2019-02-27T04:52:46.000Z</published>
     <updated>2019-02-27T04:52:46.657Z</updated>
     
@@ -31,23 +31,9 @@
   </entry>
   
   <entry>
-    <title>categories/工具资源</title>
-    <link href="http://yoursite.com/2019/02/27/categories-%E5%B7%A5%E5%85%B7%E8%B5%84%E6%BA%90/"/>
-    <id>http://yoursite.com/2019/02/27/categories-工具资源/</id>
-    <published>2019-02-27T04:51:28.000Z</published>
-    <updated>2019-02-27T04:51:28.406Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>tags</title>
-    <link href="http://yoursite.com/2019/02/27/tags/"/>
-    <id>http://yoursite.com/2019/02/27/tags/</id>
+    <link href="http://altctrl.cn/2019/02/27/tags/"/>
+    <id>http://altctrl.cn/2019/02/27/tags/</id>
     <published>2019-02-27T04:50:48.000Z</published>
     <updated>2019-02-27T04:50:48.681Z</updated>
     
@@ -60,8 +46,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2019/02/27/hello-world/"/>
-    <id>http://yoursite.com/2019/02/27/hello-world/</id>
+    <link href="http://altctrl.cn/2019/02/27/hello-world/"/>
+    <id>http://altctrl.cn/2019/02/27/hello-world/</id>
     <published>2019-02-27T02:18:34.629Z</published>
     <updated>2019-02-27T02:03:23.670Z</updated>
     
