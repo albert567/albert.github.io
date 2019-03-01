@@ -1,7 +1,12 @@
 .DS_Store
 Thumbs.db
-db.json
 *.log
-node_modules/
-public/
 .deploy*/
+/themes/next/.bowerrc
+/themes/next/.stylintrc
+/themes/next/.travis.yml
+/themes/next/.editorconfig
+/themes/next/.gitattributes
+/themes/next/.hound.yml
+/themes/next/.javascript_ignore
+/themes/next/.jshintrc
