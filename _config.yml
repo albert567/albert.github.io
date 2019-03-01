@@ -4,9 +4,9 @@
 
 # Site
 title: 乌托邦
-subtitle:
-description:
-keywords:
+subtitle: 技术乐园
+description: 属于程序员的技术乐园
+keywords: 后端博客,Java,Jvm,MySQL,Mybatis Spring,Jsf,JMQ
 author: albert
 language: zh-Hans
 timezone:

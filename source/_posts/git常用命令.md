@@ -1,7 +1,9 @@
 ---
 title: git常用命令
-type: categories
 date: 2019-02-27 12:52:46
+categories: IT技术
+catalogue: 版本管理
+tags: git
 ---
 ### git常用命令
 1.如何配置你的身份
@@ -16,6 +18,7 @@ git config --global user.name
 
 git config --global user.email
 ```
+<!--more-->
 2.如何创建代码仓库
 
 先进入到项目目录下面,执行命令:

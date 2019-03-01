@@ -1,9 +1,24 @@
 ---
 title: HttpClient工具类
-type: categories
 date: 2019-02-28 12:52:46
+categories: IT技术
+catalogue: Java web
+tags: [Java,HttpClient]
 ---
 引用自> https://my.oschina.net/u/873047/blog/204634
+所需jar包：
+* commons-cdec-1.9.jar
+* commons-logging-1.2.jar
+* fluent-hc-4.5.2.jar
+* httpclient-4.5.2.jar
+* httpclient-cache-4.5.2.jar
+* httpclient-win-4.5.2.jar
+* httpcore-4.4.4.jar
+* httpmime-4.5.2.jar
+* jna-4.1.0.jar
+* jna-platform-4.1.0.jar
+<!--more-->
+
 代码如下：
 ```
 import java.util.ArrayList;
@@ -135,5 +150,3 @@ public class HttpRequestUtils {
     }
 }
 ```
-所需jar包：
-![](http://img.blog.csdn.net/20161102162506758)
