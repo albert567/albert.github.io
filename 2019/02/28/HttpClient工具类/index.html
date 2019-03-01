@@ -85,7 +85,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Java,HttpClient,">
 
 
 
@@ -98,19 +98,18 @@
 
 
 
-<meta name="description" content="引用自&amp;gt; https://my.oschina.net/u/873047/blog/204634代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767">
+<meta name="description" content="引用自&amp;gt; https://my.oschina.net/u/873047/blog/204634所需jar包：  commons-cdec-1.9.jar commons-logging-1.2.jar fluent-hc-4.5.2.jar httpclient-4.5.2.jar httpclient-cache-4.5.2.jar httpclient-win-4.5.2.jar ht">
+<meta name="keywords" content="Java,HttpClient">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HttpClient工具类">
 <meta property="og:url" content="http://altctrl.cn/2019/02/28/HttpClient工具类/index.html">
 <meta property="og:site_name" content="乌托邦">
-<meta property="og:description" content="引用自&amp;gt; https://my.oschina.net/u/873047/blog/204634代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767">
+<meta property="og:description" content="引用自&amp;gt; https://my.oschina.net/u/873047/blog/204634所需jar包：  commons-cdec-1.9.jar commons-logging-1.2.jar fluent-hc-4.5.2.jar httpclient-4.5.2.jar httpclient-cache-4.5.2.jar httpclient-win-4.5.2.jar ht">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://img.blog.csdn.net/20161102162506758">
-<meta property="og:updated_time" content="2019-02-28T07:17:59.966Z">
+<meta property="og:updated_time" content="2019-03-01T03:42:34.588Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HttpClient工具类">
-<meta name="twitter:description" content="引用自&amp;gt; https://my.oschina.net/u/873047/blog/204634代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20161102162506758">
+<meta name="twitter:description" content="引用自&amp;gt; https://my.oschina.net/u/873047/blog/204634所需jar包：  commons-cdec-1.9.jar commons-logging-1.2.jar fluent-hc-4.5.2.jar httpclient-4.5.2.jar httpclient-cache-4.5.2.jar httpclient-win-4.5.2.jar ht">
 
 
 
@@ -182,7 +181,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">技术乐园</p>
       
   </div>
 
@@ -215,7 +214,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-history"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -321,7 +320,7 @@
   
   
 
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -371,12 +370,34 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-02-28T15:17:59+08:00">
-                2019-02-28
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-01T11:42:34+08:00">
+                2019-03-01
               </time>
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT技术/" itemprop="url" rel="index">
+                    <span itemprop="name">IT技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -399,7 +420,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  618
+                  671
                 </span>
               
 
@@ -436,8 +457,21 @@
       
 
       
-        <p>引用自&gt; <a href="https://my.oschina.net/u/873047/blog/204634" target="_blank" rel="noopener">https://my.oschina.net/u/873047/blog/204634</a><br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">import org.apache.http.HttpEntity;</span><br><span class="line">import org.apache.http.NameValuePair;</span><br><span class="line">import org.apache.http.client.config.RequestConfig;</span><br><span class="line">import org.apache.http.client.entity.UrlEncodedFormEntity;</span><br><span class="line">import org.apache.http.client.methods.CloseableHttpResponse;</span><br><span class="line">import org.apache.http.client.methods.HttpGet;</span><br><span class="line">import org.apache.http.client.methods.HttpPost;</span><br><span class="line">import org.apache.http.impl.client.CloseableHttpClient;</span><br><span class="line">import org.apache.http.impl.client.HttpClientBuilder;</span><br><span class="line">import org.apache.http.message.BasicNameValuePair;</span><br><span class="line">import org.apache.http.util.EntityUtils;</span><br><span class="line"></span><br><span class="line">public class HttpRequestUtils &#123;</span><br><span class="line">	</span><br><span class="line">	private static final CloseableHttpClient httpClient;</span><br><span class="line">    public static final String CHARSET = &quot;UTF-8&quot;;</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        RequestConfig config = RequestConfig.custom().setConnectTimeout(60000).setSocketTimeout(15000).build();</span><br><span class="line">        httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String doGet(String url, Map&lt;String, String&gt; params)&#123;</span><br><span class="line">        return doGet(url, params,CHARSET);</span><br><span class="line">    &#125;</span><br><span class="line">    public static String doPost(String url, Map&lt;String, String&gt; params)&#123;</span><br><span class="line">        return doPost(url, params,CHARSET);</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * HTTP Get 获取内容</span><br><span class="line">     * @param url  请求的url地址 ?之前的地址</span><br><span class="line">     * @param params	请求的参数</span><br><span class="line">     * @param charset	编码格式</span><br><span class="line">     * @return	页面内容</span><br><span class="line">     */</span><br><span class="line">    public static String doGet(String url,Map&lt;String,String&gt; params,String charset)&#123;</span><br><span class="line">    	if(url==null||&quot;&quot;.equals(url))&#123;</span><br><span class="line">    		return null;</span><br><span class="line">    	&#125;</span><br><span class="line">    	try &#123;</span><br><span class="line">    		if(params != null &amp;&amp; !params.isEmpty())&#123;</span><br><span class="line">    			List&lt;NameValuePair&gt; pairs = new ArrayList&lt;NameValuePair&gt;(params.size());</span><br><span class="line">    			for(Map.Entry&lt;String,String&gt; entry : params.entrySet())&#123;</span><br><span class="line">    				String value = entry.getValue();</span><br><span class="line">    				if(value != null)&#123;</span><br><span class="line">    					pairs.add(new BasicNameValuePair(entry.getKey(),value));</span><br><span class="line">    				&#125;</span><br><span class="line">    			&#125;</span><br><span class="line">    			url += &quot;?&quot; + EntityUtils.toString(new UrlEncodedFormEntity(pairs, charset));</span><br><span class="line">    		&#125;</span><br><span class="line">    		HttpGet httpGet = new HttpGet(url);</span><br><span class="line">    		CloseableHttpResponse response = httpClient.execute(httpGet);</span><br><span class="line">    		int statusCode = response.getStatusLine().getStatusCode();</span><br><span class="line">    		if (statusCode != 200) &#123;</span><br><span class="line">    			httpGet.abort();</span><br><span class="line">    			throw new RuntimeException(&quot;HttpClient,error status code :&quot; + statusCode);</span><br><span class="line">    		&#125;</span><br><span class="line">    		HttpEntity entity = response.getEntity();</span><br><span class="line">    		String result = null;</span><br><span class="line">    		if (entity != null)&#123;</span><br><span class="line">    			result = EntityUtils.toString(entity, &quot;utf-8&quot;);</span><br><span class="line">    		&#125;</span><br><span class="line">    		EntityUtils.consume(entity);</span><br><span class="line">    		response.close();</span><br><span class="line">    		return result;</span><br><span class="line">    	&#125; catch (Exception e) &#123;</span><br><span class="line">    		e.printStackTrace();</span><br><span class="line">    	&#125;</span><br><span class="line">    	return null;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    /**</span><br><span class="line">     * HTTP Post 获取内容</span><br><span class="line">     * @param url  请求的url地址 ?之前的地址</span><br><span class="line">     * @param params	请求的参数</span><br><span class="line">     * @param charset	编码格式</span><br><span class="line">     * @return	页面内容</span><br><span class="line">     */</span><br><span class="line">    public static String doPost(String url,Map&lt;String,String&gt; params,String charset)&#123;</span><br><span class="line">    	if(url==null||&quot;&quot;.equals(url))&#123;</span><br><span class="line">    		return null;</span><br><span class="line">    	&#125;</span><br><span class="line">    	try &#123;</span><br><span class="line">    		List&lt;NameValuePair&gt; pairs = null;</span><br><span class="line">    		if(params != null &amp;&amp; !params.isEmpty())&#123;</span><br><span class="line">    			pairs = new ArrayList&lt;NameValuePair&gt;(params.size());</span><br><span class="line">    			for(Map.Entry&lt;String,String&gt; entry : params.entrySet())&#123;</span><br><span class="line">    				String value = entry.getValue();</span><br><span class="line">    				if(value != null)&#123;</span><br><span class="line">    					pairs.add(new BasicNameValuePair(entry.getKey(),value));</span><br><span class="line">    				&#125;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    		HttpPost httpPost = new HttpPost(url);</span><br><span class="line">    		if(pairs != null &amp;&amp; pairs.size() &gt; 0)&#123;</span><br><span class="line">    			httpPost.setEntity(new UrlEncodedFormEntity(pairs,CHARSET));</span><br><span class="line">    		&#125;</span><br><span class="line">    		CloseableHttpResponse response = httpClient.execute(httpPost);</span><br><span class="line">    		int statusCode = response.getStatusLine().getStatusCode();</span><br><span class="line">    		if (statusCode != 200) &#123;</span><br><span class="line">    			httpPost.abort();</span><br><span class="line">    			throw new RuntimeException(&quot;HttpClient,error status code :&quot; + statusCode);</span><br><span class="line">    		&#125;</span><br><span class="line">    		HttpEntity entity = response.getEntity();</span><br><span class="line">    		String result = null;</span><br><span class="line">    		if (entity != null)&#123;</span><br><span class="line">    			result = EntityUtils.toString(entity, &quot;utf-8&quot;);</span><br><span class="line">    		&#125;</span><br><span class="line">    		EntityUtils.consume(entity);</span><br><span class="line">    		response.close();</span><br><span class="line">    		return result;</span><br><span class="line">    	&#125; catch (Exception e) &#123;</span><br><span class="line">    		e.printStackTrace();</span><br><span class="line">    	&#125;</span><br><span class="line">    	return null;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String []args)&#123;</span><br><span class="line">    	String getData = doGet(&quot;http://www.baidu.com/&quot;,null);</span><br><span class="line">    	System.out.println(getData);</span><br><span class="line">    	System.out.println(&quot;----------------------分割线-----------------------&quot;);</span><br><span class="line">    	String postData = doPost(&quot;http://www.baidu.com/&quot;,null);</span><br><span class="line">    	System.out.println(postData);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>所需jar包：<br><img src="http://img.blog.csdn.net/20161102162506758" alt></p>
+        <p>引用自&gt; <a href="https://my.oschina.net/u/873047/blog/204634" target="_blank" rel="noopener">https://my.oschina.net/u/873047/blog/204634</a><br>所需jar包：</p>
+<ul>
+<li>commons-cdec-1.9.jar</li>
+<li>commons-logging-1.2.jar</li>
+<li>fluent-hc-4.5.2.jar</li>
+<li>httpclient-4.5.2.jar</li>
+<li>httpclient-cache-4.5.2.jar</li>
+<li>httpclient-win-4.5.2.jar</li>
+<li>httpcore-4.4.4.jar</li>
+<li>httpmime-4.5.2.jar</li>
+<li>jna-4.1.0.jar</li>
+<li>jna-platform-4.1.0.jar<a id="more"></a>
+</li>
+</ul>
+<p>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">import org.apache.http.HttpEntity;</span><br><span class="line">import org.apache.http.NameValuePair;</span><br><span class="line">import org.apache.http.client.config.RequestConfig;</span><br><span class="line">import org.apache.http.client.entity.UrlEncodedFormEntity;</span><br><span class="line">import org.apache.http.client.methods.CloseableHttpResponse;</span><br><span class="line">import org.apache.http.client.methods.HttpGet;</span><br><span class="line">import org.apache.http.client.methods.HttpPost;</span><br><span class="line">import org.apache.http.impl.client.CloseableHttpClient;</span><br><span class="line">import org.apache.http.impl.client.HttpClientBuilder;</span><br><span class="line">import org.apache.http.message.BasicNameValuePair;</span><br><span class="line">import org.apache.http.util.EntityUtils;</span><br><span class="line"></span><br><span class="line">public class HttpRequestUtils &#123;</span><br><span class="line">	</span><br><span class="line">	private static final CloseableHttpClient httpClient;</span><br><span class="line">    public static final String CHARSET = &quot;UTF-8&quot;;</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        RequestConfig config = RequestConfig.custom().setConnectTimeout(60000).setSocketTimeout(15000).build();</span><br><span class="line">        httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String doGet(String url, Map&lt;String, String&gt; params)&#123;</span><br><span class="line">        return doGet(url, params,CHARSET);</span><br><span class="line">    &#125;</span><br><span class="line">    public static String doPost(String url, Map&lt;String, String&gt; params)&#123;</span><br><span class="line">        return doPost(url, params,CHARSET);</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * HTTP Get 获取内容</span><br><span class="line">     * @param url  请求的url地址 ?之前的地址</span><br><span class="line">     * @param params	请求的参数</span><br><span class="line">     * @param charset	编码格式</span><br><span class="line">     * @return	页面内容</span><br><span class="line">     */</span><br><span class="line">    public static String doGet(String url,Map&lt;String,String&gt; params,String charset)&#123;</span><br><span class="line">    	if(url==null||&quot;&quot;.equals(url))&#123;</span><br><span class="line">    		return null;</span><br><span class="line">    	&#125;</span><br><span class="line">    	try &#123;</span><br><span class="line">    		if(params != null &amp;&amp; !params.isEmpty())&#123;</span><br><span class="line">    			List&lt;NameValuePair&gt; pairs = new ArrayList&lt;NameValuePair&gt;(params.size());</span><br><span class="line">    			for(Map.Entry&lt;String,String&gt; entry : params.entrySet())&#123;</span><br><span class="line">    				String value = entry.getValue();</span><br><span class="line">    				if(value != null)&#123;</span><br><span class="line">    					pairs.add(new BasicNameValuePair(entry.getKey(),value));</span><br><span class="line">    				&#125;</span><br><span class="line">    			&#125;</span><br><span class="line">    			url += &quot;?&quot; + EntityUtils.toString(new UrlEncodedFormEntity(pairs, charset));</span><br><span class="line">    		&#125;</span><br><span class="line">    		HttpGet httpGet = new HttpGet(url);</span><br><span class="line">    		CloseableHttpResponse response = httpClient.execute(httpGet);</span><br><span class="line">    		int statusCode = response.getStatusLine().getStatusCode();</span><br><span class="line">    		if (statusCode != 200) &#123;</span><br><span class="line">    			httpGet.abort();</span><br><span class="line">    			throw new RuntimeException(&quot;HttpClient,error status code :&quot; + statusCode);</span><br><span class="line">    		&#125;</span><br><span class="line">    		HttpEntity entity = response.getEntity();</span><br><span class="line">    		String result = null;</span><br><span class="line">    		if (entity != null)&#123;</span><br><span class="line">    			result = EntityUtils.toString(entity, &quot;utf-8&quot;);</span><br><span class="line">    		&#125;</span><br><span class="line">    		EntityUtils.consume(entity);</span><br><span class="line">    		response.close();</span><br><span class="line">    		return result;</span><br><span class="line">    	&#125; catch (Exception e) &#123;</span><br><span class="line">    		e.printStackTrace();</span><br><span class="line">    	&#125;</span><br><span class="line">    	return null;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    /**</span><br><span class="line">     * HTTP Post 获取内容</span><br><span class="line">     * @param url  请求的url地址 ?之前的地址</span><br><span class="line">     * @param params	请求的参数</span><br><span class="line">     * @param charset	编码格式</span><br><span class="line">     * @return	页面内容</span><br><span class="line">     */</span><br><span class="line">    public static String doPost(String url,Map&lt;String,String&gt; params,String charset)&#123;</span><br><span class="line">    	if(url==null||&quot;&quot;.equals(url))&#123;</span><br><span class="line">    		return null;</span><br><span class="line">    	&#125;</span><br><span class="line">    	try &#123;</span><br><span class="line">    		List&lt;NameValuePair&gt; pairs = null;</span><br><span class="line">    		if(params != null &amp;&amp; !params.isEmpty())&#123;</span><br><span class="line">    			pairs = new ArrayList&lt;NameValuePair&gt;(params.size());</span><br><span class="line">    			for(Map.Entry&lt;String,String&gt; entry : params.entrySet())&#123;</span><br><span class="line">    				String value = entry.getValue();</span><br><span class="line">    				if(value != null)&#123;</span><br><span class="line">    					pairs.add(new BasicNameValuePair(entry.getKey(),value));</span><br><span class="line">    				&#125;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    		HttpPost httpPost = new HttpPost(url);</span><br><span class="line">    		if(pairs != null &amp;&amp; pairs.size() &gt; 0)&#123;</span><br><span class="line">    			httpPost.setEntity(new UrlEncodedFormEntity(pairs,CHARSET));</span><br><span class="line">    		&#125;</span><br><span class="line">    		CloseableHttpResponse response = httpClient.execute(httpPost);</span><br><span class="line">    		int statusCode = response.getStatusLine().getStatusCode();</span><br><span class="line">    		if (statusCode != 200) &#123;</span><br><span class="line">    			httpPost.abort();</span><br><span class="line">    			throw new RuntimeException(&quot;HttpClient,error status code :&quot; + statusCode);</span><br><span class="line">    		&#125;</span><br><span class="line">    		HttpEntity entity = response.getEntity();</span><br><span class="line">    		String result = null;</span><br><span class="line">    		if (entity != null)&#123;</span><br><span class="line">    			result = EntityUtils.toString(entity, &quot;utf-8&quot;);</span><br><span class="line">    		&#125;</span><br><span class="line">    		EntityUtils.consume(entity);</span><br><span class="line">    		response.close();</span><br><span class="line">    		return result;</span><br><span class="line">    	&#125; catch (Exception e) &#123;</span><br><span class="line">    		e.printStackTrace();</span><br><span class="line">    	&#125;</span><br><span class="line">    	return null;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String []args)&#123;</span><br><span class="line">    	String getData = doGet(&quot;http://www.baidu.com/&quot;,null);</span><br><span class="line">    	System.out.println(getData);</span><br><span class="line">    	System.out.println(&quot;----------------------分割线-----------------------&quot;);</span><br><span class="line">    	String postData = doPost(&quot;http://www.baidu.com/&quot;,null);</span><br><span class="line">    	System.out.println(postData);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -483,6 +517,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/HttpClient/" rel="tag"><i class="fa fa-tag"></i> HttpClient</a>
+          
+        </div>
       
 
       
@@ -588,7 +630,7 @@ var jiathis_config={
               <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="albert">
             
               <p class="site-author-name" itemprop="name">albert</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">属于程序员的技术乐园</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -605,7 +647,25 @@ var jiathis_config={
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -714,21 +774,9 @@ var jiathis_config={
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">1.2k</span>
+    <span title="Site words total count">1.3k</span>
   
 </div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
 
 
 
