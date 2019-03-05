@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>乌托邦</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://altctrl.cn/"/>
+  <updated>2019-03-04T06:37:10.366Z</updated>
+  <id>http://altctrl.cn/</id>
+  
+  <author>
+    <name>albert</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Redis相关</title>
+    <link href="http://altctrl.cn/2019/03/04/Redis%E7%9B%B8%E5%85%B3/"/>
+    <id>http://altctrl.cn/2019/03/04/Redis相关/</id>
+    <published>2019-03-04T04:52:46.000Z</published>
+    <updated>2019-03-04T06:37:10.366Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;介绍：Redis 是一个开源的使用 ANSI C 语言编写、遵守 BSD 协议、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库，并提供多种语言的 API的非关系型数据库。&lt;br&gt;传统数据库遵循 ACID 规则。而 Nosql（Not Only SQL 的缩写，是对不同于传统的关系型数据库的数据库管理系统的统称） 一般为分布式而分布式一般遵循 CAP 定理。&lt;br&gt;Github 源码：&lt;a href=&quot;https://github.com/antirez/redis&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/antirez/redis&lt;/a&gt;&lt;br&gt;Redis 官网：&lt;a href=&quot;https://redis.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://redis.io/&lt;/a&gt;&lt;/p&gt;
+&lt;h5 id=&quot;Redis支持的数据类型？&quot;&gt;&lt;a href=&quot;#Redis支持的数据类型？&quot; class=&quot;headerlink&quot; title=&quot;Redis支持的数据类型？&quot;&gt;&lt;/a&gt;Redis支持的数据类型？&lt;/h5&gt;&lt;p&gt;String字符串&lt;br&gt;格式: set key value&lt;br&gt;string类型是二进制安全的。意思是redis的string可以包含任何数据。比如jpg图片或者序列化的对象 。&lt;br&gt;string类型是Redis最基本的数据类型，一个键最大能存储512MB。&lt;/p&gt;
+&lt;p&gt;Hash（哈希）&lt;br&gt;格式: hmset name  key1 value1 key2 value2&lt;br&gt;Redis hash 是一个键值(key=&amp;gt;value)对集合。&lt;br&gt;Redis hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IT技术" scheme="http://altctrl.cn/categories/IT%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="redis" scheme="http://altctrl.cn/tags/redis/"/>
+    
+      <category term="Key-Value数据库" scheme="http://altctrl.cn/tags/Key-Value%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HttpClient工具类</title>
+    <link href="http://altctrl.cn/2019/02/28/HttpClient%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
+    <id>http://altctrl.cn/2019/02/28/HttpClient工具类/</id>
+    <published>2019-02-28T04:52:46.000Z</published>
+    <updated>2019-03-01T03:42:34.588Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;引用自&amp;gt; &lt;a href=&quot;https://my.oschina.net/u/873047/blog/204634&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://my.oschina.net/u/873047/blog/204634&lt;/a&gt;&lt;br&gt;所需jar包：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;commons-cdec-1.9.jar&lt;/li&gt;
+&lt;li&gt;commons-logging-1.2.jar&lt;/li&gt;
+&lt;li&gt;fluent-hc-4.5.2.jar&lt;/li&gt;
+&lt;li&gt;httpclient-4.5.2.jar&lt;/li&gt;
+&lt;li&gt;httpclient-cache-4.5.2.jar&lt;/li&gt;
+&lt;li&gt;httpclient-win-4.5.2.jar&lt;/li&gt;
+&lt;li&gt;httpcore-4.4.4.jar&lt;/li&gt;
+&lt;li&gt;httpmime-4.5.2.jar&lt;/li&gt;
+&lt;li&gt;jna-4.1.0.jar&lt;/li&gt;
+&lt;li&gt;jna-platform-4.1.0.jar&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="IT技术" scheme="http://altctrl.cn/categories/IT%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="Java" scheme="http://altctrl.cn/tags/Java/"/>
+    
+      <category term="HttpClient" scheme="http://altctrl.cn/tags/HttpClient/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JS跨域请求</title>
+    <link href="http://altctrl.cn/2019/02/28/JS%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/"/>
+    <id>http://altctrl.cn/2019/02/28/JS跨域请求/</id>
+    <published>2019-02-28T04:52:46.000Z</published>
+    <updated>2019-03-01T03:35:43.126Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;首先js跨域请求是不安全的，可以通过前台调用后台服务器，通过后台httpclient请求url，返回结果。js跨域请求如下：&lt;br&gt;前端js：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$.ajax(&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	async : false,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	url : url,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	type : &amp;quot;GET&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	dataType : &amp;quot;jsonp&amp;quot;, // 返回的数据类型，设置为JSONP方式&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	jsonp : &amp;quot;jsonpCallback&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	success : function(response) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		alert(&amp;quot;请求成功&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	error : function() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		alert(&amp;quot;请求失败&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IT技术" scheme="http://altctrl.cn/categories/IT%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="JS" scheme="http://altctrl.cn/tags/JS/"/>
+    
+      <category term="javascript" scheme="http://altctrl.cn/tags/javascript/"/>
+    
+      <category term="跨域" scheme="http://altctrl.cn/tags/%E8%B7%A8%E5%9F%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git常用命令</title>
+    <link href="http://altctrl.cn/2019/02/27/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>http://altctrl.cn/2019/02/27/git常用命令/</id>
+    <published>2019-02-27T04:52:46.000Z</published>
+    <updated>2019-03-01T03:17:12.159Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;git常用命令&quot;&gt;&lt;a href=&quot;#git常用命令&quot; class=&quot;headerlink&quot; title=&quot;git常用命令&quot;&gt;&lt;/a&gt;git常用命令&lt;/h3&gt;&lt;p&gt;1.如何配置你的身份&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git config --global user.name &amp;quot;Albert&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git config --global user.email &amp;quot;albert@gmal.com&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;验证是否配置成功(只需要将最后的名字和邮箱地址去掉即可)&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git config --global user.name&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git config --global user.email&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IT技术" scheme="http://altctrl.cn/categories/IT%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="git" scheme="http://altctrl.cn/tags/git/"/>
+    
+  </entry>
+  
+</feed>
