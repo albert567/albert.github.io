@@ -45,14 +45,23 @@
     <link href="http://altctrl.cn/2019/03/04/HashMap%E6%BA%90%E7%A0%81%E7%AF%87/"/>
     <id>http://altctrl.cn/2019/03/04/HashMap源码篇/</id>
     <published>2019-03-04T04:52:46.000Z</published>
-    <updated>2019-03-08T10:07:19.082Z</updated>
+    <updated>2019-03-08T10:12:00.339Z</updated>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;&lt;font color=&quot;red&quot;&gt;本文转载自 &lt;a href=&quot;https://www.cnblogs.com/zhaojj/p/7805376.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/zh
-      
+      &lt;p&gt;&lt;font color=&quot;red&quot;&gt;本文转载自 &lt;a href=&quot;https://www.cnblogs.com/zhaojj/p/7805376.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/zhaojj/p/7805376.html&lt;/a&gt;&lt;font&gt;&lt;/font&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;h4 id=&quot;目的：&quot;&gt;&lt;a href=&quot;#目的：&quot; class=&quot;headerlink&quot; title=&quot;目的：&quot;&gt;&lt;/a&gt;目的：&lt;/h4&gt;&lt;p&gt;单纯分析和学习hashmap的实现，不多说与Hashtable、ConcurrentHashMap等的区别。&lt;br&gt;基于 jdk1.8&lt;/p&gt;
+&lt;p&gt;在面试中有些水平的公司比较喜欢问HashMap原理，其中涉及的点比较多，而且大多能形成连环炮形式的问题。&lt;/p&gt;
+&lt;p&gt;一般连环炮，一环不知道后面试官也就不问了，但是低层连环没连上，恭喜扣分是大大的，连到比较深的时候，说不知道还好点，比如：&lt;/p&gt;
+&lt;p&gt;关于集合的&lt;br&gt;1.1Hashmap是不是有序的？   不是继续&lt;/p&gt;
+&lt;p&gt;1.2有没有有顺序的Map？     TreeMap  LinkedHashMap&lt;/p&gt;
+&lt;p&gt;1.3它们是怎么来保证顺序的？   一般都要说到其源码，要不说不清为么有序&lt;/p&gt;
+&lt;p&gt;1.4答两个有序或以上的 继续  你觉得它们有序的区别，那个比较好，在什么场景用哪个好？&lt;/p&gt;
+&lt;p&gt;1.4答一个也可以问上面的场景  继续&lt;/p&gt;
+&lt;p&gt;1.5你觉得有没有更好或者更高效的实现方式？有&lt;/p&gt;
+&lt;p&gt;1.6 答有  这个时候说起来可能就要跑到底层数据结构上去了&lt;/p&gt;
+&lt;p&gt;数据结构继续衍生 到 算法等等。。。&lt;/p&gt;
+&lt;p&gt;就这一个遇到大佬问你，能把很多人连到怀疑人生&lt;br&gt;&lt;/p&gt;
     
     </summary>
     

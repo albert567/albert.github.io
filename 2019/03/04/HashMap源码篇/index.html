@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="乌托邦">
 <meta property="og:description" content="本文转载自 https://www.cnblogs.com/zhaojj/p/7805376.html 目的：单纯分析和学习hashmap的实现，不多说与Hashtable、ConcurrentHashMap等的区别。基于 jdk1.8 在面试中有些水平的公司比较喜欢问HashMap原理，其中涉及的点比较多，而且大多能形成连环炮形式的问题。 一般连环炮，一环不知道后面试官也就不问了，但是低层连环没">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-08T10:07:19.082Z">
+<meta property="og:updated_time" content="2019-03-08T10:12:00.339Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap源码篇">
 <meta name="twitter:description" content="本文转载自 https://www.cnblogs.com/zhaojj/p/7805376.html 目的：单纯分析和学习hashmap的实现，不多说与Hashtable、ConcurrentHashMap等的区别。基于 jdk1.8 在面试中有些水平的公司比较喜欢问HashMap原理，其中涉及的点比较多，而且大多能形成连环炮形式的问题。 一般连环炮，一环不知道后面试官也就不问了，但是低层连环没">
@@ -370,7 +370,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-08T18:07:19+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-08T18:12:00+08:00">
                 2019-03-08
               </time>
             
@@ -458,10 +458,10 @@
 
       
         <p><font color="red">本文转载自 <a href="https://www.cnblogs.com/zhaojj/p/7805376.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhaojj/p/7805376.html</a><font></font></font></p>
-<h5 id="目的："><a href="#目的：" class="headerlink" title="目的："></a>目的：</h5><p>单纯分析和学习hashmap的实现，不多说与Hashtable、ConcurrentHashMap等的区别。<br>基于 jdk1.8</p>
+<h4 id="目的："><a href="#目的：" class="headerlink" title="目的："></a>目的：</h4><p>单纯分析和学习hashmap的实现，不多说与Hashtable、ConcurrentHashMap等的区别。<br>基于 jdk1.8</p>
 <p>在面试中有些水平的公司比较喜欢问HashMap原理，其中涉及的点比较多，而且大多能形成连环炮形式的问题。</p>
-<pre><code>一般连环炮，一环不知道后面试官也就不问了，但是低层连环没连上，恭喜扣分是大大的，连到比较深的时候，说不知道还好点，比如：
-</code></pre><p>关于集合的<br>1.1Hashmap是不是有序的？   不是继续</p>
+<p>一般连环炮，一环不知道后面试官也就不问了，但是低层连环没连上，恭喜扣分是大大的，连到比较深的时候，说不知道还好点，比如：</p>
+<p>关于集合的<br>1.1Hashmap是不是有序的？   不是继续</p>
 <p>1.2有没有有顺序的Map？     TreeMap  LinkedHashMap</p>
 <p>1.3它们是怎么来保证顺序的？   一般都要说到其源码，要不说不清为么有序</p>
 <p>1.4答两个有序或以上的 继续  你觉得它们有序的区别，那个比较好，在什么场景用哪个好？</p>
@@ -469,7 +469,7 @@
 <p>1.5你觉得有没有更好或者更高效的实现方式？有</p>
 <p>1.6 答有  这个时候说起来可能就要跑到底层数据结构上去了</p>
 <p>数据结构继续衍生 到 算法等等。。。</p>
-<p>就这一个遇到大佬问你，能把很多人连到怀疑人生</p>
+<p>就这一个遇到大佬问你，能把很多人连到怀疑人生<br><a id="more"></a></p>
 <p>2.关于hash的</p>
 <p>1.1  hashmap基本的节点结构？  Node  键值对</p>
 <p>1.2  键是什么样的，我用字符串a那键就是a嘛？   不是会进行hash</p>
@@ -787,7 +787,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#目的："><span class="nav-number">1.</span> <span class="nav-text">目的：</span></a></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap类加载"><span class="nav-number"></span> <span class="nav-text">HashMap类加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始使用，第一步我们肯定是初始化方法，先从默认的构造方法开始学习"><span class="nav-number"></span> <span class="nav-text">开始使用，第一步我们肯定是初始化方法，先从默认的构造方法开始学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一般我们的使用第二步就是put了"><span class="nav-number"></span> <span class="nav-text">一般我们的使用第二步就是put了</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些其他我们需要知道的"><span class="nav-number"></span> <span class="nav-text">一些其他我们需要知道的</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#目的："><span class="nav-number">1.</span> <span class="nav-text">目的：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap类加载"><span class="nav-number">2.</span> <span class="nav-text">HashMap类加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始使用，第一步我们肯定是初始化方法，先从默认的构造方法开始学习"><span class="nav-number">3.</span> <span class="nav-text">开始使用，第一步我们肯定是初始化方法，先从默认的构造方法开始学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一般我们的使用第二步就是put了"><span class="nav-number">4.</span> <span class="nav-text">一般我们的使用第二步就是put了</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些其他我们需要知道的"><span class="nav-number">5.</span> <span class="nav-text">一些其他我们需要知道的</span></a></li></ol></div>
             
 
           </div>
