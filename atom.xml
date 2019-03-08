@@ -41,26 +41,25 @@
   </entry>
   
   <entry>
-    <title>JS跨域请求</title>
-    <link href="http://altctrl.cn/2019/02/28/JS%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/"/>
-    <id>http://altctrl.cn/2019/02/28/JS跨域请求/</id>
-    <published>2019-02-28T04:52:46.000Z</published>
-    <updated>2019-03-01T03:35:43.126Z</updated>
+    <title>HashMap源码篇</title>
+    <link href="http://altctrl.cn/2019/03/04/HashMap%E6%BA%90%E7%A0%81%E7%AF%87/"/>
+    <id>http://altctrl.cn/2019/03/04/HashMap源码篇/</id>
+    <published>2019-03-04T04:52:46.000Z</published>
+    <updated>2019-03-08T10:07:19.082Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;首先js跨域请求是不安全的，可以通过前台调用后台服务器，通过后台httpclient请求url，返回结果。js跨域请求如下：&lt;br&gt;前端js：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$.ajax(&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	async : false,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	url : url,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	type : &amp;quot;GET&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	dataType : &amp;quot;jsonp&amp;quot;, // 返回的数据类型，设置为JSONP方式&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	jsonp : &amp;quot;jsonpCallback&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	success : function(response) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		alert(&amp;quot;请求成功&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	error : function() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		alert(&amp;quot;请求失败&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+      
+      
+        &lt;p&gt;&lt;font color=&quot;red&quot;&gt;本文转载自 &lt;a href=&quot;https://www.cnblogs.com/zhaojj/p/7805376.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/zh
+      
     
     </summary>
     
-      <category term="IT技术" scheme="http://altctrl.cn/categories/IT%E6%8A%80%E6%9C%AF/"/>
+      <category term="源码解读" scheme="http://altctrl.cn/categories/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/"/>
     
     
-      <category term="JS" scheme="http://altctrl.cn/tags/JS/"/>
-    
-      <category term="javascript" scheme="http://altctrl.cn/tags/javascript/"/>
-    
-      <category term="跨域" scheme="http://altctrl.cn/tags/%E8%B7%A8%E5%9F%9F/"/>
+      <category term="HashMap" scheme="http://altctrl.cn/tags/HashMap/"/>
     
   </entry>
   
@@ -94,6 +93,30 @@
       <category term="Java" scheme="http://altctrl.cn/tags/Java/"/>
     
       <category term="HttpClient" scheme="http://altctrl.cn/tags/HttpClient/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JS跨域请求</title>
+    <link href="http://altctrl.cn/2019/02/28/JS%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/"/>
+    <id>http://altctrl.cn/2019/02/28/JS跨域请求/</id>
+    <published>2019-02-28T04:52:46.000Z</published>
+    <updated>2019-03-01T03:35:43.126Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;首先js跨域请求是不安全的，可以通过前台调用后台服务器，通过后台httpclient请求url，返回结果。js跨域请求如下：&lt;br&gt;前端js：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$.ajax(&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	async : false,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	url : url,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	type : &amp;quot;GET&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	dataType : &amp;quot;jsonp&amp;quot;, // 返回的数据类型，设置为JSONP方式&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	jsonp : &amp;quot;jsonpCallback&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	success : function(response) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		alert(&amp;quot;请求成功&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	error : function() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		alert(&amp;quot;请求失败&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IT技术" scheme="http://altctrl.cn/categories/IT%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="JS" scheme="http://altctrl.cn/tags/JS/"/>
+    
+      <category term="javascript" scheme="http://altctrl.cn/tags/javascript/"/>
+    
+      <category term="跨域" scheme="http://altctrl.cn/tags/%E8%B7%A8%E5%9F%9F/"/>
     
   </entry>
   
