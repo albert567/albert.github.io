@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="HashMap,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="乌托邦" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本文转载自 https://www.cnblogs.com/zhaojj/p/7805376.html 目的：单纯分析和学习hashmap的实现，不多说与Hashtable、ConcurrentHashMap等的区别。基于 jdk1.8 在面试中有些水平的公司比较喜欢问HashMap原理，其中涉及的点比较多，而且大多能形成连环炮形式的问题。 一般连环炮，一环不知道后面试官也就不问了，但是低层连环没">
+<meta name="keywords" content="HashMap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HashMap源码篇">
+<meta property="og:url" content="http://altctrl.cn/2019/03/04/HashMap源码篇/index.html">
+<meta property="og:site_name" content="乌托邦">
+<meta property="og:description" content="本文转载自 https://www.cnblogs.com/zhaojj/p/7805376.html 目的：单纯分析和学习hashmap的实现，不多说与Hashtable、ConcurrentHashMap等的区别。基于 jdk1.8 在面试中有些水平的公司比较喜欢问HashMap原理，其中涉及的点比较多，而且大多能形成连环炮形式的问题。 一般连环炮，一环不知道后面试官也就不问了，但是低层连环没">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-08T10:12:00.339Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HashMap源码篇">
+<meta name="twitter:description" content="本文转载自 https://www.cnblogs.com/zhaojj/p/7805376.html 目的：单纯分析和学习hashmap的实现，不多说与Hashtable、ConcurrentHashMap等的区别。基于 jdk1.8 在面试中有些水平的公司比较喜欢问HashMap原理，其中涉及的点比较多，而且大多能形成连环炮形式的问题。 一般连环炮，一环不知道后面试官也就不问了，但是低层连环没">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://altctrl.cn/2019/03/04/HashMap源码篇/">
+
+
+
+
+
+  <title>HashMap源码篇 | 乌托邦</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/albert567/blob"><img style="position: absolute;top:0;left: 0;border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_red_aa0000.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">乌托邦</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-list"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-catalogue">
+          <a href="/catalogue/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-briefcase"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://altctrl.cn/2019/03/04/HashMap源码篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="albert">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乌托邦">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HashMap源码篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-04T12:52:46+08:00">
+                2019-03-04
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-08T18:12:00+08:00">
+                2019-03-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/源码解读/" itemprop="url" rel="index">
+                    <span itemprop="name">源码解读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><font color="red">本文转载自 <a href="https://www.cnblogs.com/zhaojj/p/7805376.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhaojj/p/7805376.html</a><font></font></font></p>
+<h4 id="目的："><a href="#目的：" class="headerlink" title="目的："></a>目的：</h4><p>单纯分析和学习hashmap的实现，不多说与Hashtable、ConcurrentHashMap等的区别。<br>基于 jdk1.8</p>
+<p>在面试中有些水平的公司比较喜欢问HashMap原理，其中涉及的点比较多，而且大多能形成连环炮形式的问题。</p>
+<p>一般连环炮，一环不知道后面试官也就不问了，但是低层连环没连上，恭喜扣分是大大的，连到比较深的时候，说不知道还好点，比如：</p>
+<p>关于集合的<br>1.1Hashmap是不是有序的？   不是继续</p>
+<p>1.2有没有有顺序的Map？     TreeMap  LinkedHashMap</p>
+<p>1.3它们是怎么来保证顺序的？   一般都要说到其源码，要不说不清为么有序</p>
+<p>1.4答两个有序或以上的 继续  你觉得它们有序的区别，那个比较好，在什么场景用哪个好？</p>
+<p>1.4答一个也可以问上面的场景  继续</p>
+<p>1.5你觉得有没有更好或者更高效的实现方式？有</p>
+<p>1.6 答有  这个时候说起来可能就要跑到底层数据结构上去了</p>
+<p>数据结构继续衍生 到 算法等等。。。</p>
+<p>就这一个遇到大佬问你，能把很多人连到怀疑人生<br><a id="more"></a></p>
+<p>2.关于hash的</p>
+<p>1.1  hashmap基本的节点结构？  Node  键值对</p>
+<p>1.2  键是什么样的，我用字符串a那键就是a嘛？   不是会进行hash</p>
+<p>1.3  如何hash的  这样hash有什么好处？   源码hashmap的hash算法</p>
+<p>1.4  Hash在java中主要作用是什么？</p>
+<p>1.5  Hashcode  equal相关   需要同时重写？原因？</p>
+<p>1.6  equal引出的对象地址、string带有字符串缓冲区、字符串常量池</p>
+<p>等等。。。</p>
+<p>3.关于线程安全问题、到concurrent包等</p>
+<p>前面说这些就是想说，hashmap中用到的东西很多，深入学习和理解对每个想晋升的程序员来说基本是必须，同时由它引出的对比，也是无限多，有很大的必要学习。</p>
+<h4 id="HashMap类加载"><a href="#HashMap类加载" class="headerlink" title="HashMap类加载"></a>HashMap类加载</h4><p>1.只有一些静态属性会进行赋值，具体每个值什么用，暂时不管</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4; // aka 16</span><br><span class="line"></span><br><span class="line">static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;</span><br><span class="line"></span><br><span class="line">static final float DEFAULT_LOAD_FACTOR = 0.75f;</span><br><span class="line"></span><br><span class="line">static final int TREEIFY_THRESHOLD = 8;</span><br><span class="line"></span><br><span class="line">static final int UNTREEIFY_THRESHOLD = 6;</span><br><span class="line"></span><br><span class="line">static final int MIN_TREEIFY_CAPACITY = 64;</span><br></pre></td></tr></table></figure>
+<h4 id="开始使用，第一步我们肯定是初始化方法，先从默认的构造方法开始学习"><a href="#开始使用，第一步我们肯定是初始化方法，先从默认的构造方法开始学习" class="headerlink" title="开始使用，第一步我们肯定是初始化方法，先从默认的构造方法开始学习"></a>开始使用，第一步我们肯定是初始化方法，先从默认的构造方法开始学习</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public HashMap() &#123;</span><br><span class="line">        this.loadFactor = DEFAULT_LOAD_FACTOR; // all other fields defaulted</span><br><span class="line">    &#125;</span><br><span class="line">1.AbstractMap父类，构造方法也没干事不谈</span><br><span class="line">2.只是赋值loadFactor 0.75f 没干别的事</span><br><span class="line">3.static final float DEFAULT_LOAD_FACTOR = 0.75f;</span><br><span class="line">4.loadFactor属性 作用先放着后面用到再看</span><br><span class="line">5.没干别的事了</span><br></pre></td></tr></table></figure>
+<h4 id="一般我们的使用第二步就是put了"><a href="#一般我们的使用第二步就是put了" class="headerlink" title="一般我们的使用第二步就是put了"></a>一般我们的使用第二步就是put了</h4><p>先看常用的put键值对，这个学完了，那么其他的put方法就没什么问题了，比如putAll、putIfAbsent、putMapEntries</p>
+<p>同时put弄明白了 取值就是一个反向就简单了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public V put(K key, V value) &#123;</span><br><span class="line">  return putVal(hash(key), key, value, false, true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1.先对key进行hash计算，学一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static final int hash(Object key) &#123;</span><br><span class="line">    int h;</span><br><span class="line">    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</span><br><span class="line">&#125;</span><br><span class="line">1.1 看出key是可以空的  hash为0</span><br><span class="line">1.2 (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16)   第一步取key的hashcode值  关于更底层的hashcode是什么 有兴趣再看</span><br><span class="line">    h ^ (h &gt;&gt;&gt; 16)  第二步 高位参与运算</span><br><span class="line">这个hash值的重要性就不说了，这里这么干是出于性能考虑，底层的移位和异或运算肯定比加减乘除取模等效率好 </span><br><span class="line">hashcode是32位的，无符号右移16位，那生成的就是16位0加原高位的16位值， 就是对半了，异或计算也就变成了高16位和低16位进行异或，</span><br><span class="line">原高16位不变。这么干主要用于当hashmap 数组比较小的时候所有bit都参与运算了，防止hash冲突太大，</span><br><span class="line">所谓hash冲突是指不同的key计算出的hash是一样的，比如a和97，这个肯定是存在的没毛病</span><br></pre></td></tr></table></figure>
+<p>2.putVal </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">   * Implements Map.put and related methods</span><br><span class="line">   *</span><br><span class="line">   * @param hash hash for key</span><br><span class="line">   * @param key the key</span><br><span class="line">   * @param value the value to put</span><br><span class="line">   * @param onlyIfAbsent if true, don&apos;t change existing value   相同key是不是覆盖值</span><br><span class="line">   * @param evict if false, the table is in creation mode.    在hashmap中没用</span><br><span class="line">   * @return previous value, or null if none</span><br><span class="line">   */</span><br><span class="line">  final V putVal(int hash, K key, V value, boolean onlyIfAbsent,</span><br><span class="line">                 boolean evict) &#123;</span><br><span class="line">      Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;</span><br><span class="line">      if ((tab = table) == null || (n = tab.length) == 0)</span><br><span class="line">          n = (tab = resize()).length;</span><br><span class="line">      if ((p = tab[i = (n - 1) &amp; hash]) == null)</span><br><span class="line">          tab[i] = newNode(hash, key, value, null);</span><br><span class="line">      else &#123;</span><br><span class="line">          Node&lt;K,V&gt; e; K k;</span><br><span class="line">          if (p.hash == hash &amp;&amp;</span><br><span class="line">              ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))</span><br><span class="line">              e = p;</span><br><span class="line">          else if (p instanceof TreeNode)</span><br><span class="line">              e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);</span><br><span class="line">          else &#123;</span><br><span class="line">              for (int binCount = 0; ; ++binCount) &#123;</span><br><span class="line">                  if ((e = p.next) == null) &#123;</span><br><span class="line">                      p.next = newNode(hash, key, value, null);</span><br><span class="line">                      if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st</span><br><span class="line">                          treeifyBin(tab, hash);</span><br><span class="line">                      break;</span><br><span class="line">                  &#125;</span><br><span class="line">                  if (e.hash == hash &amp;&amp;</span><br><span class="line">                      ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))</span><br><span class="line">                      break;</span><br><span class="line">                  p = e;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          if (e != null) &#123; // existing mapping for key</span><br><span class="line">              V oldValue = e.value;</span><br><span class="line">              if (!onlyIfAbsent || oldValue == null)</span><br><span class="line">                  e.value = value;</span><br><span class="line">              afterNodeAccess(e);</span><br><span class="line">              return oldValue;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      ++modCount;</span><br><span class="line">      if (++size &gt; threshold)</span><br><span class="line">          resize();</span><br><span class="line">      afterNodeInsertion(evict);</span><br><span class="line">      return null;</span><br><span class="line">  &#125;</span><br><span class="line">  2.1 执行顺序</span><br><span class="line">      第一句  Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i; 申明变量</span><br><span class="line">          Node是啥,学习一下：</span><br><span class="line">              static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; &#123;</span><br><span class="line">                  final int hash;</span><br><span class="line">                  final K key;</span><br><span class="line">                  V value;</span><br><span class="line">                  Node&lt;K,V&gt; next;</span><br><span class="line"></span><br><span class="line">                  Node(int hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">                      this.hash = hash;</span><br><span class="line">                      this.key = key;</span><br><span class="line">                      this.value = value;</span><br><span class="line">                      this.next = next;</span><br><span class="line">                  &#125;</span><br><span class="line"></span><br><span class="line">                  public final K getKey()        &#123; return key; &#125;</span><br><span class="line">                  public final V getValue()      &#123; return value; &#125;</span><br><span class="line">                  public final String toString() &#123; return key + &quot;=&quot; + value; &#125;</span><br><span class="line"></span><br><span class="line">                  public final int hashCode() &#123;</span><br><span class="line">                      return Objects.hashCode(key) ^ Objects.hashCode(value);</span><br><span class="line">                  &#125;</span><br><span class="line"></span><br><span class="line">                  public final V setValue(V newValue) &#123;</span><br><span class="line">                      V oldValue = value;</span><br><span class="line">                      value = newValue;</span><br><span class="line">                      return oldValue;</span><br><span class="line">                  &#125;</span><br><span class="line"></span><br><span class="line">                  public final boolean equals(Object o) &#123;</span><br><span class="line">                      if (o == this)</span><br><span class="line">                          return true;</span><br><span class="line">                      if (o instanceof Map.Entry) &#123;</span><br><span class="line">                          Map.Entry&lt;?,?&gt; e = (Map.Entry&lt;?,?&gt;)o;</span><br><span class="line">                          if (Objects.equals(key, e.getKey()) &amp;&amp;</span><br><span class="line">                              Objects.equals(value, e.getValue()))</span><br><span class="line">                              return true;</span><br><span class="line">                      &#125;</span><br><span class="line">                      return false;</span><br><span class="line">                  &#125;</span><br><span class="line">              &#125;</span><br><span class="line">          是内部的一个静态类，看看就明白了，明显是一个带有3个值，hash、key、value和另一个Node对象引用的HashMap子元素结构，即我们装的每个键值对就用一个Node对象存放</span><br><span class="line">          </span><br><span class="line">      第二句 if ((tab = table) == null || (n = tab.length) == 0) 这句</span><br><span class="line">          tab = table赋值，table现在是null的，so n = tab.length不运行了 运行这个if的代码块</span><br><span class="line">      第三句 n = (tab = resize()).length;   从下面的执行知道 n=16</span><br><span class="line">          调用resize()，返回Node数组，这个resize是一个非常重要的方法，我们就依现在的对象状态去看这个方法，不带入其他状态，认真研究学习下</span><br><span class="line">              final Node&lt;K,V&gt;[] resize() &#123;</span><br><span class="line">                  Node&lt;K,V&gt;[] oldTab = table;</span><br><span class="line">                  int oldCap = (oldTab == null) ? 0 : oldTab.length;</span><br><span class="line">                  int oldThr = threshold;</span><br><span class="line">                  int newCap, newThr = 0;</span><br><span class="line">                  if (oldCap &gt; 0) &#123;</span><br><span class="line">                      if (oldCap &gt;= MAXIMUM_CAPACITY) &#123;</span><br><span class="line">                          threshold = Integer.MAX_VALUE;</span><br><span class="line">                          return oldTab;</span><br><span class="line">                      &#125;</span><br><span class="line">                      else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;</span><br><span class="line">                               oldCap &gt;= DEFAULT_INITIAL_CAPACITY)</span><br><span class="line">                          newThr = oldThr &lt;&lt; 1; // double threshold</span><br><span class="line">                  &#125;</span><br><span class="line">                  else if (oldThr &gt; 0) // initial capacity was placed in threshold</span><br><span class="line">                      newCap = oldThr;</span><br><span class="line">                  else &#123;               // zero initial threshold signifies using defaults</span><br><span class="line">                      newCap = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">                      newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);</span><br><span class="line">                  &#125;</span><br><span class="line">                  if (newThr == 0) &#123;</span><br><span class="line">                      float ft = (float)newCap * loadFactor;</span><br><span class="line">                      newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?</span><br><span class="line">                                (int)ft : Integer.MAX_VALUE);</span><br><span class="line">                  &#125;</span><br><span class="line">                  threshold = newThr;</span><br><span class="line">                  @SuppressWarnings(&#123;&quot;rawtypes&quot;,&quot;unchecked&quot;&#125;)</span><br><span class="line">                      Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap];</span><br><span class="line">                  table = newTab;</span><br><span class="line">                  if (oldTab != null) &#123;</span><br><span class="line">                      for (int j = 0; j &lt; oldCap; ++j) &#123;</span><br><span class="line">                          Node&lt;K,V&gt; e;</span><br><span class="line">                          if ((e = oldTab[j]) != null) &#123;</span><br><span class="line">                              oldTab[j] = null;</span><br><span class="line">                              if (e.next == null)</span><br><span class="line">                                  newTab[e.hash &amp; (newCap - 1)] = e;</span><br><span class="line">                              else if (e instanceof TreeNode)</span><br><span class="line">                                  ((TreeNode&lt;K,V&gt;)e).split(this, newTab, j, oldCap);</span><br><span class="line">                              else &#123; // preserve order</span><br><span class="line">                                  Node&lt;K,V&gt; loHead = null, loTail = null;</span><br><span class="line">                                  Node&lt;K,V&gt; hiHead = null, hiTail = null;</span><br><span class="line">                                  Node&lt;K,V&gt; next;</span><br><span class="line">                                  do &#123;</span><br><span class="line">                                      next = e.next;</span><br><span class="line">                                      if ((e.hash &amp; oldCap) == 0) &#123;</span><br><span class="line">                                          if (loTail == null)</span><br><span class="line">                                              loHead = e;</span><br><span class="line">                                          else</span><br><span class="line">                                              loTail.next = e;</span><br><span class="line">                                          loTail = e;</span><br><span class="line">                                      &#125;</span><br><span class="line">                                      else &#123;</span><br><span class="line">                                          if (hiTail == null)</span><br><span class="line">                                              hiHead = e;</span><br><span class="line">                                          else</span><br><span class="line">                                              hiTail.next = e;</span><br><span class="line">                                          hiTail = e;</span><br><span class="line">                                      &#125;</span><br><span class="line">                                  &#125; while ((e = next) != null);</span><br><span class="line">                                  if (loTail != null) &#123;</span><br><span class="line">                                      loTail.next = null;</span><br><span class="line">                                      newTab[j] = loHead;</span><br><span class="line">                                  &#125;</span><br><span class="line">                                  if (hiTail != null) &#123;</span><br><span class="line">                                      hiTail.next = null;</span><br><span class="line">                                      newTab[j + oldCap] = hiHead;</span><br><span class="line">                                  &#125;</span><br><span class="line">                              &#125;</span><br><span class="line">                          &#125;</span><br><span class="line">                      &#125;</span><br><span class="line">                  &#125;</span><br><span class="line">                  return newTab;</span><br><span class="line">              &#125;</span><br><span class="line">          resize  1.Node&lt;K,V&gt;[] oldTab = table; 在上面知道table是null的，so  oldTab也是null</span><br><span class="line">                  2.int oldCap = (oldTab == null) ? 0 : oldTab.length;   oldCap=0</span><br><span class="line">                  3.int oldThr = threshold;   threshold我们没赋值过，int初始0 ， oldThr=threshold=0</span><br><span class="line">                  4.int newCap, newThr = 0;  不谈</span><br><span class="line">                  5.if (oldCap &gt; 0) &#123;    oldCap=0  if不运行</span><br><span class="line">                  6.else if (oldThr &gt; 0)  oldThr=0  if也不运行</span><br><span class="line">                  7.else &#123;</span><br><span class="line">                          newCap = DEFAULT_INITIAL_CAPACITY;       DEFAULT_INITIAL_CAPACITY静态成员变量，初始 static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4     so newCap=16</span><br><span class="line">                          newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);   static final float DEFAULT_LOAD_FACTOR = 0.75f;   0.75*16=12   newThr=12</span><br><span class="line">                      &#125;</span><br><span class="line">                  8.  if (newThr == 0) &#123;     newThr=12 if不运行</span><br><span class="line">                  9.  threshold = newThr;    threshold = newThr=12</span><br><span class="line">                  10. Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap]   申明一个16个大小的Node数组</span><br><span class="line">                  11. table = newTab;   看出来了吧，table是成员变量，也就表明，HashMap初始数据结构是一个16的Node数组</span><br><span class="line">                  12.  if (oldTab != null) &#123;   oldTab是1中赋值的null，if不运行</span><br><span class="line">                  13.  return newTab;  返回16大小的node数组</span><br><span class="line">              总结，这一波调用是初次调用其实没干别的事，就是定义了基本的数据结构是16个Node数组，但是这个方法不简单，因为一些if没走</span><br><span class="line">              </span><br><span class="line">      第四句     if ((p = tab[i = (n - 1) &amp; hash]) == null)</span><br><span class="line">          n=16   15&amp;hash 结果肯定是0-15，这里就看出，这是在计算一个key应该在整个数据结构16的数组中的索引了，并赋值给i变量，后面不管整体结构n变多大，这种计算key所在的索引是非常棒的设计。</span><br><span class="line">          现在的状态是初始的 肯定是null的吧  if运行</span><br><span class="line">          </span><br><span class="line">      第五句 tab[i] = newNode(hash, key, value, null); new一个节点Node，放在数组里，i是第四句计算的索引</span><br><span class="line">      第六句 else &#123;  不运行</span><br><span class="line">      第七句  ++modCount;   transient int modCount; 根据注释可以看出，这个是记录数据结构变动次数的，put值肯定是变了的</span><br><span class="line">      第八句  if (++size &gt; threshold)  size=1  threshold在调用resize时赋值12   if不运行</span><br><span class="line">      第九句 afterNodeInsertion(evict);  没干事</span><br><span class="line">      第十句   return null; 不谈</span><br></pre></td></tr></table></figure>
+<p>3.putVal 再回头详走,第一遍干了很多初始化的事有些东西还没研究到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">final V putVal(int hash, K key, V value, boolean onlyIfAbsent,</span><br><span class="line">                 boolean evict) &#123;</span><br><span class="line">      Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;</span><br><span class="line">      if ((tab = table) == null || (n = tab.length) == 0)</span><br><span class="line">          n = (tab = resize()).length;</span><br><span class="line">      if ((p = tab[i = (n - 1) &amp; hash]) == null)</span><br><span class="line">          tab[i] = newNode(hash, key, value, null);</span><br><span class="line">      else &#123;</span><br><span class="line">          Node&lt;K,V&gt; e; K k;</span><br><span class="line">          if (p.hash == hash &amp;&amp;</span><br><span class="line">              ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))</span><br><span class="line">              e = p;</span><br><span class="line">          else if (p instanceof TreeNode)</span><br><span class="line">              e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);</span><br><span class="line">          else &#123;</span><br><span class="line">              for (int binCount = 0; ; ++binCount) &#123;</span><br><span class="line">                  if ((e = p.next) == null) &#123;</span><br><span class="line">                      p.next = newNode(hash, key, value, null);</span><br><span class="line">                      if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st</span><br><span class="line">                          treeifyBin(tab, hash);</span><br><span class="line">                      break;</span><br><span class="line">                  &#125;</span><br><span class="line">                  if (e.hash == hash &amp;&amp;</span><br><span class="line">                      ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))</span><br><span class="line">                      break;</span><br><span class="line">                  p = e;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          if (e != null) &#123; // existing mapping for key</span><br><span class="line">              V oldValue = e.value;</span><br><span class="line">              if (!onlyIfAbsent || oldValue == null)</span><br><span class="line">                  e.value = value;</span><br><span class="line">              afterNodeAccess(e);</span><br><span class="line">              return oldValue;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      ++modCount;</span><br><span class="line">      if (++size &gt; threshold)</span><br><span class="line">          resize();</span><br><span class="line">      afterNodeInsertion(evict);</span><br><span class="line">      return null;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">      第一句  Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i; 申明变量不谈</span><br><span class="line">      第二句 if ((tab = table) == null || (n = tab.length) == 0) 这句</span><br><span class="line">          tab = table赋值，table现在是16数组 n=16  if不运行</span><br><span class="line">      第三句 if ((p = tab[i = (n - 1) &amp; hash]) == null) </span><br><span class="line">          再看就知道了判断当前存的key计算出的索引位置是不是已经存过值了</span><br><span class="line">          没存过就新Node存  和上面一遍一样   我们当已经有值了</span><br><span class="line">          有值其实就意味着发生hash冲突了  比如key分别是a和97 hashCode都是97 冲突</span><br><span class="line">          因此这次我们主要看下一个else里面HashMap是怎么处理冲突的</span><br><span class="line">      第四句     else中内容  即冲突处理</span><br><span class="line">          p是冲突时数组该索引位置的元素</span><br><span class="line">              1. p.hash == hash &amp;&amp;((k = p.key) == key || (key != null &amp;&amp; key.equals(k)))</span><br><span class="line">                  判断新元素hash和key是不是都和p相同，相同表示存了一样的key</span><br><span class="line">                  直接赋值给e</span><br><span class="line">              2. p instanceof TreeNode（红黑树，具体的红黑树算法这里就不详细写了，有兴趣可以去学习）</span><br><span class="line">                  怎么猛然来个红黑树，再3里说</span><br><span class="line">                  判断原来元素是不是 TreeNode 类型</span><br><span class="line">                  TreeNode一样是静态内部类，再看看就是红黑树的节点，因此这个地方用到了红黑树</span><br><span class="line">                  putTreeVal 向红黑树中添加元素</span><br><span class="line">                  内部实现，存在相同key就返回赋值给e  不存在就添加并返回null 源码就是红黑树算法</span><br><span class="line">              3.key不同也不是红黑树</span><br><span class="line">                   if ((e = p.next) == null) &#123;</span><br><span class="line">                      p.next = newNode(hash, key, value, null);</span><br><span class="line">                  &#125;</span><br><span class="line">                  先不看再里面的那个if，这个一看就知道了吧，明显的链表啊，而且数据里的这个元素是链表头</span><br><span class="line">                  整个循环，明显是在从头开始遍历链表，找到相同key或链表找完了新元素挂链表最后</span><br><span class="line">                  </span><br><span class="line">                  但在其中还有这么个if</span><br><span class="line">                      if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st</span><br><span class="line">                          treeifyBin(tab, hash);</span><br><span class="line">                      break;</span><br><span class="line">                      这是在链表找完了，且新元素已经挂在链表最后了有的一个判断</span><br><span class="line">                      判断循环次数，其实就是链表长度，长度超过TREEIFY_THRESHOLD 默认8则运行treeifyBin(tab, hash);</span><br><span class="line">                  就是这个方法把链表变成红黑树了，具体方法源码不谈了，学红黑树就可以了</span><br><span class="line">          </span><br><span class="line">          最后判断e是不是空，上面的冲突方案看出e不是空就是表示有相同的key进行value覆盖就可以，e空就是无相同key且完成了数据挂载</span><br><span class="line">          </span><br><span class="line">      </span><br><span class="line">      总结这次再走一遍putVal就是为了学习HashMap的冲突处理方案，也看出内存结构是数组、链表、红黑树组成的，红黑树是java8新引进，是基于性能的考虑，在冲突大时，红黑树算法会比链表综合表现更好</span><br></pre></td></tr></table></figure>
+<p>4.resize 再详走 putVal最后一段size&gt;threshold  threshold初始12 ++size元素数量肯定会有超12个的时候，<br>这里也就看出了threshold代表HashMap的容量，到上限就要扩容了，默认现在16数组，12元素上限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">1.Node&lt;K,V&gt;[] oldTab = table;  16大小</span><br><span class="line">      2.int oldCap = (oldTab == null) ? 0 : oldTab.length;   oldCap=16</span><br><span class="line">      3.int oldThr = threshold;     12</span><br><span class="line">      4.int newCap, newThr = 0;  不谈</span><br><span class="line">      5.if (oldCap &gt; 0) &#123;         oldCap=16运行  oldCap是整体结构数组大小</span><br><span class="line">              if (oldCap &gt;= MAXIMUM_CAPACITY) &#123;    判断数组大小是不是已经到上限1&lt;&lt;30</span><br><span class="line">                  threshold = Integer.MAX_VALUE;  到达上线 threshold 赋值最大值 然后返回 表示之后就不再干别的事了，随便存，随便hash冲突去，就这么大，无限增加红黑树节点了</span><br><span class="line">                  return oldTab;</span><br><span class="line">              &#125;</span><br><span class="line">              else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;</span><br><span class="line">                       oldCap &gt;= DEFAULT_INITIAL_CAPACITY)   赋值newCap为2倍数组大小，判断如果扩充2倍有没到上限，且不扩充时容量是否大于默认的16</span><br><span class="line">                  newThr = oldThr &lt;&lt; 1; // double threshold   满足则赋值  容量改为24</span><br><span class="line">          &#125;</span><br><span class="line">          这段看出到threshold容量了就进行2倍扩容</span><br><span class="line">      6.if (newThr == 0) &#123;    如果运行该if 0 表示5步中扩容2倍到上限或原数组大小小于16</span><br><span class="line">          float ft = (float)newCap * loadFactor;      newCap现在是2倍原大小的*0.75   2倍数组大小时的容量</span><br><span class="line">          newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?</span><br><span class="line">                    (int)ft : Integer.MAX_VALUE);     判断2倍数组大小和2倍后的容量是不是都小于最高值，是则赋值新容量，不是就用整形最大值</span><br><span class="line">          &#125;</span><br><span class="line">      7.  threshold = newThr;  把5 6两步算出的新容量赋值给HashMap  也说明要扩容了</span><br><span class="line">      8.   Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap];</span><br><span class="line">          和后面的循环主要就是把原数组中的元素，一个一个添加到新数组中，转移的一个过程</span><br><span class="line">      </span><br><span class="line">  总结，这一波调用是了解HashMap的扩容方式，看下来就是2倍扩容直到上限</span><br></pre></td></tr></table></figure>
+<p>5.总结，到这put就比较详细了，也知道了基本结构是数组、链表、红黑树，链表到8个时转换成红黑树<br>同时每次进行2倍扩容和数据转移，扩容是用新结构的那显然减少扩容次数会有更好的性能<br>那就要求每次声明HashMap时最好是指定大小的</p>
+<h4 id="一些其他我们需要知道的"><a href="#一些其他我们需要知道的" class="headerlink" title="一些其他我们需要知道的"></a>一些其他我们需要知道的</h4><p>1.指定大小的初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">public HashMap(int initialCapacity) &#123;</span><br><span class="line">      this(initialCapacity, DEFAULT_LOAD_FACTOR);</span><br><span class="line">  &#125;</span><br><span class="line">  public HashMap(int initialCapacity, float loadFactor) &#123;</span><br><span class="line">      if (initialCapacity &lt; 0)</span><br><span class="line">          throw new IllegalArgumentException(&quot;Illegal initial capacity: &quot; +</span><br><span class="line">                                             initialCapacity);</span><br><span class="line">      if (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">          initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">      if (loadFactor &lt;= 0 || Float.isNaN(loadFactor))</span><br><span class="line">          throw new IllegalArgumentException(&quot;Illegal load factor: &quot; +</span><br><span class="line">                                             loadFactor);</span><br><span class="line">      this.loadFactor = loadFactor;</span><br><span class="line">      this.threshold = tableSizeFor(initialCapacity);</span><br><span class="line">  &#125;</span><br><span class="line">  第一个常用，第二个建议是不用，不去动0.75的这个容量比例，当然不绝对</span><br><span class="line">  这里tableSizeFor是一个很神奇的算法，我非常佩服的一个算法</span><br><span class="line">      static final int tableSizeFor(int cap) &#123;</span><br><span class="line">          int n = cap - 1;</span><br><span class="line">          n |= n &gt;&gt;&gt; 1;</span><br><span class="line">          n |= n &gt;&gt;&gt; 2;</span><br><span class="line">          n |= n &gt;&gt;&gt; 4;</span><br><span class="line">          n |= n &gt;&gt;&gt; 8;</span><br><span class="line">          n |= n &gt;&gt;&gt; 16;</span><br><span class="line">          return (n &lt; 0) ? 1 : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;</span><br><span class="line">      &#125;</span><br><span class="line">      这个方法是在找大于等于cap且最小2的幂</span><br><span class="line">      比如cap=1   结果 2 0次方 1</span><br><span class="line">      cap=2  2</span><br><span class="line">      cap=3 4</span><br><span class="line">      cap=9  16</span><br><span class="line">      分析下等于9</span><br><span class="line">      cap - 1  第一步结果8</span><br><span class="line">      00000000000000000000000000001000    8</span><br><span class="line">      00000000000000000000000000000100    右移1位 </span><br><span class="line">      </span><br><span class="line">      00000000000000000000000000001100    或运算 结果</span><br><span class="line">      00000000000000000000000000000011    右移2位</span><br><span class="line">      00000000000000000000000000001111    或运算 结果</span><br><span class="line">                                          </span><br><span class="line">      00000000000000000000000000001111    右移 4 8 16没用全是0结果还是这个15</span><br><span class="line">      最终 +1   16</span><br><span class="line">      </span><br><span class="line">      分析下等于大点 12345678</span><br><span class="line">      00000000101111000110000101001110  12345678</span><br><span class="line">      00000000101111000110000101001101  -1结果   12345677</span><br><span class="line">      00000000010111100011000010100110  右移1位 </span><br><span class="line">      </span><br><span class="line">      00000000111111100111000111101111  或运算 结果</span><br><span class="line">      00000000001111111001110001111011  右移2位</span><br><span class="line">      </span><br><span class="line">      00000000111111111111110111111111  差不多了在移0就没了都是1了，+1不是肯定是2的倍数了</span><br><span class="line">      </span><br><span class="line">      再说开始-1原因这是为了防止，cap已经是2的幂。</span><br><span class="line">      如果cap已经是2的幂， 又没有执行这个减1操作，则执行完后面的几条无符号右移操作之后，返回的capacity将是这个cap的2倍。如果不懂，要看完后面的几个无符号右移之后再回来看看</span><br></pre></td></tr></table></figure>
+<p>2.HashMap数组结构为什么用2的倍数<br>高速的索引计算，使用HashMap肯定是冲突越少越好，就要求分部均匀，最好的用取模 h % length，但是近一步如果用2的幂h &amp; (length - 1) == h % length 是等价的，效率缺差却别非常大<br>综合衡量用空间换了时间，且是值得的</p>
+<p>3.线程安全问题<br>线程不安全，就put来看全程没考虑线程问题，肯定不安全，现在随便并发一下resize会混乱吧，put链表，红黑树挂载基本都会出问题</p>
+
+      
+    </div>
+    <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------ 本文结束------</div>
+    
+</div>
+        
+     </div>
+    
+    
+    
+    <div>
+          
+            
+          
+    </div>
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    albert
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://altctrl.cn/2019/03/04/HashMap源码篇/" title="HashMap源码篇">http://altctrl.cn/2019/03/04/HashMap源码篇/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HashMap/" rel="tag"><i class="fa fa-tag"></i> HashMap</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/28/HttpClient工具类/" rel="next" title="HttpClient工具类">
+                <i class="fa fa-chevron-left"></i> HttpClient工具类
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/04/Redis相关/" rel="prev" title="Redis相关">
+                Redis相关 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="albert">
+            
+              <p class="site-author-name" itemprop="name">albert</p>
+              <p class="site-description motion-element" itemprop="description">属于程序员的技术乐园</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:18811056733@163.com" target="_blank" title="邮箱">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>邮箱</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/zhangyaping123/" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://my.oschina.net/u/3614517" target="_blank" title="开源中国">
+                      
+                        <i class="fa fa-fw fa-facebook"></i>开源中国</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/altctrl/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-google"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com/" title="baidu" target="_blank">baidu</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.google.com/" title="google" target="_blank">google</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          <div id="music163player">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28285910&auto=1&height=66"></iframe>
+</div>
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#目的："><span class="nav-number">1.</span> <span class="nav-text">目的：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap类加载"><span class="nav-number">2.</span> <span class="nav-text">HashMap类加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始使用，第一步我们肯定是初始化方法，先从默认的构造方法开始学习"><span class="nav-number">3.</span> <span class="nav-text">开始使用，第一步我们肯定是初始化方法，先从默认的构造方法开始学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一般我们的使用第二步就是put了"><span class="nav-number">4.</span> <span class="nav-text">一般我们的使用第二步就是put了</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些其他我们需要知道的"><span class="nav-number">5.</span> <span class="nav-text">一些其他我们需要知道的</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">albert</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">8.7k</span>
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

@@ -1,17 +1,18 @@
 ---
-title: HashMap原理
+title: HashMap源码篇
 date: 2019-03-04 12:52:46
 categories: 源码解读
 catalogue: java
 tags: [HashMap]
 ---
-##### 目的：
+<font color="red">本文转载自 https://www.cnblogs.com/zhaojj/p/7805376.html<font>
+#### 目的：
 单纯分析和学习hashmap的实现，不多说与Hashtable、ConcurrentHashMap等的区别。
 基于 jdk1.8
 
 在面试中有些水平的公司比较喜欢问HashMap原理，其中涉及的点比较多，而且大多能形成连环炮形式的问题。
 
-       一般连环炮，一环不知道后面试官也就不问了，但是低层连环没连上，恭喜扣分是大大的，连到比较深的时候，说不知道还好点，比如：
+一般连环炮，一环不知道后面试官也就不问了，但是低层连环没连上，恭喜扣分是大大的，连到比较深的时候，说不知道还好点，比如：
 
 关于集合的
 1.1Hashmap是不是有序的？   不是继续
@@ -31,6 +32,7 @@ tags: [HashMap]
 数据结构继续衍生 到 算法等等。。。
 
 就这一个遇到大佬问你，能把很多人连到怀疑人生
+<!--more-->
 
 2.关于hash的
 
