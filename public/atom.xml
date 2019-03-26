@@ -18,14 +18,14 @@
   
   <entry>
     <title>Redis相关</title>
-    <link href="http://altctrl.cn/2019/03/04/Redis%E7%9B%B8%E5%85%B3/"/>
-    <id>http://altctrl.cn/2019/03/04/Redis相关/</id>
+    <link href="http://altctrl.cn/Redis%E7%9B%B8%E5%85%B3/"/>
+    <id>http://altctrl.cn/Redis相关/</id>
     <published>2019-03-04T04:52:46.000Z</published>
     <updated>2019-03-04T06:37:10.366Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;介绍：Redis 是一个开源的使用 ANSI C 语言编写、遵守 BSD 协议、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库，并提供多种语言的 API的非关系型数据库。&lt;br&gt;传统数据库遵循 ACID 规则。而 Nosql（Not Only SQL 的缩写，是对不同于传统的关系型数据库的数据库管理系统的统称） 一般为分布式而分布式一般遵循 CAP 定理。&lt;br&gt;Github 源码：&lt;a href=&quot;https://github.com/antirez/redis&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/antirez/redis&lt;/a&gt;&lt;br&gt;Redis 官网：&lt;a href=&quot;https://redis.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://redis.io/&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;介绍：Redis 是一个开源的使用 ANSI C 语言编写、遵守 BSD 协议、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库，并提供多种语言的 API的非关系型数据库。&lt;br&gt;传统数据库遵循 ACID 规则。而 Nosql（Not Only SQL 的缩写，是对不同于传统的关系型数据库的数据库管理系统的统称） 一般为分布式而分布式一般遵循 CAP 定理。&lt;br&gt;Github 源码：&lt;a href=&quot;https://github.com/antirez/redis&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://github.com/antirez/redis&lt;/a&gt;&lt;br&gt;Redis 官网：&lt;a href=&quot;https://redis.io/&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://redis.io/&lt;/a&gt;&lt;/p&gt;
 &lt;h5 id=&quot;Redis支持的数据类型？&quot;&gt;&lt;a href=&quot;#Redis支持的数据类型？&quot; class=&quot;headerlink&quot; title=&quot;Redis支持的数据类型？&quot;&gt;&lt;/a&gt;Redis支持的数据类型？&lt;/h5&gt;&lt;p&gt;String字符串&lt;br&gt;格式: set key value&lt;br&gt;string类型是二进制安全的。意思是redis的string可以包含任何数据。比如jpg图片或者序列化的对象 。&lt;br&gt;string类型是Redis最基本的数据类型，一个键最大能存储512MB。&lt;/p&gt;
 &lt;p&gt;Hash（哈希）&lt;br&gt;格式: hmset name  key1 value1 key2 value2&lt;br&gt;Redis hash 是一个键值(key=&amp;gt;value)对集合。&lt;br&gt;Redis hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。&lt;br&gt;&lt;/p&gt;
     
@@ -42,14 +42,14 @@
   
   <entry>
     <title>HashMap源码篇</title>
-    <link href="http://altctrl.cn/2019/03/04/HashMap%E6%BA%90%E7%A0%81%E7%AF%87/"/>
-    <id>http://altctrl.cn/2019/03/04/HashMap源码篇/</id>
+    <link href="http://altctrl.cn/HashMap%E6%BA%90%E7%A0%81%E7%AF%87/"/>
+    <id>http://altctrl.cn/HashMap源码篇/</id>
     <published>2019-03-04T04:52:46.000Z</published>
     <updated>2019-03-08T10:12:00.339Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;font color=&quot;red&quot;&gt;本文转载自 &lt;a href=&quot;https://www.cnblogs.com/zhaojj/p/7805376.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/zhaojj/p/7805376.html&lt;/a&gt;&lt;font&gt;&lt;/font&gt;&lt;/font&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;font color=&quot;red&quot;&gt;本文转载自 &lt;a href=&quot;https://www.cnblogs.com/zhaojj/p/7805376.html&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://www.cnblogs.com/zhaojj/p/7805376.html&lt;/a&gt;&lt;font&gt;&lt;/font&gt;&lt;/font&gt;&lt;/p&gt;
 &lt;h4 id=&quot;目的：&quot;&gt;&lt;a href=&quot;#目的：&quot; class=&quot;headerlink&quot; title=&quot;目的：&quot;&gt;&lt;/a&gt;目的：&lt;/h4&gt;&lt;p&gt;单纯分析和学习hashmap的实现，不多说与Hashtable、ConcurrentHashMap等的区别。&lt;br&gt;基于 jdk1.8&lt;/p&gt;
 &lt;p&gt;在面试中有些水平的公司比较喜欢问HashMap原理，其中涉及的点比较多，而且大多能形成连环炮形式的问题。&lt;/p&gt;
 &lt;p&gt;一般连环炮，一环不知道后面试官也就不问了，但是低层连环没连上，恭喜扣分是大大的，连到比较深的时候，说不知道还好点，比如：&lt;/p&gt;
@@ -74,14 +74,14 @@
   
   <entry>
     <title>HttpClient工具类</title>
-    <link href="http://altctrl.cn/2019/02/28/HttpClient%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
-    <id>http://altctrl.cn/2019/02/28/HttpClient工具类/</id>
+    <link href="http://altctrl.cn/HttpClient%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
+    <id>http://altctrl.cn/HttpClient工具类/</id>
     <published>2019-02-28T04:52:46.000Z</published>
     <updated>2019-03-01T03:42:34.588Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;引用自&amp;gt; &lt;a href=&quot;https://my.oschina.net/u/873047/blog/204634&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://my.oschina.net/u/873047/blog/204634&lt;/a&gt;&lt;br&gt;所需jar包：&lt;/p&gt;
+      &lt;p&gt;引用自&amp;gt; &lt;a href=&quot;https://my.oschina.net/u/873047/blog/204634&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://my.oschina.net/u/873047/blog/204634&lt;/a&gt;&lt;br&gt;所需jar包：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;commons-cdec-1.9.jar&lt;/li&gt;
 &lt;li&gt;commons-logging-1.2.jar&lt;/li&gt;
@@ -107,8 +107,8 @@
   
   <entry>
     <title>JS跨域请求</title>
-    <link href="http://altctrl.cn/2019/02/28/JS%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/"/>
-    <id>http://altctrl.cn/2019/02/28/JS跨域请求/</id>
+    <link href="http://altctrl.cn/JS%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/"/>
+    <id>http://altctrl.cn/JS跨域请求/</id>
     <published>2019-02-28T04:52:46.000Z</published>
     <updated>2019-03-01T03:35:43.126Z</updated>
     
@@ -131,8 +131,8 @@
   
   <entry>
     <title>git常用命令</title>
-    <link href="http://altctrl.cn/2019/02/27/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
-    <id>http://altctrl.cn/2019/02/27/git常用命令/</id>
+    <link href="http://altctrl.cn/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>http://altctrl.cn/git常用命令/</id>
     <published>2019-02-27T04:52:46.000Z</published>
     <updated>2019-03-01T03:17:12.159Z</updated>
     

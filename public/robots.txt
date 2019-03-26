@@ -1,0 +1,11 @@
+User-agent: * Allow: /
+Allow: /categories/
+Allow: /catalogue/
+Allow: /tags/
+Allow: /_posts/
+Allow: /about/
+Allow: /404/
+
+
+Sitemap: https://altctrl.cn/sitemap.xml
+Sitemap: https://altctrl.cn/baidusitemap.xml
