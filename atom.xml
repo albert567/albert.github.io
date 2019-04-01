@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://altctrl.cn/"/>
-  <updated>2019-03-04T06:37:10.366Z</updated>
+  <updated>2019-03-29T10:49:28.415Z</updated>
   <id>http://altctrl.cn/</id>
   
   <author>
@@ -15,6 +15,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SpringBoot入门</title>
+    <link href="http://altctrl.cn/springboot/"/>
+    <id>http://altctrl.cn/springboot/</id>
+    <published>2019-03-29T04:52:46.000Z</published>
+    <updated>2019-03-29T10:49:28.415Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;font color=&quot;red&quot;&gt;本文转载自 &lt;a href=&quot;https://www.cnblogs.com/wmyskxz/p/9010832.html&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://www.cnblogs.com/wmyskxz/p/9010832.html&lt;/a&gt;&lt;font&gt;&lt;/font&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Spring-Boot-概述&quot;&gt;&lt;a href=&quot;#Spring-Boot-概述&quot; class=&quot;headerlink&quot; title=&quot;Spring Boot 概述&quot;&gt;&lt;/a&gt;Spring Boot 概述&lt;/h3&gt;&lt;blockquote&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Build Anything with Spring Boot：Spring Boot is the starting point for building all Spring-based applications.&lt;br&gt;Spring Boot is designed to get you up and running as quickly as possible, with minimal upfront configuration of Spring.&lt;/p&gt;
+&lt;p&gt;上面是引自官网的一段话，大概是说： Spring Boot 是所有基于 Spring 开发的项目的起点。Spring Boot 的设计是为了让你尽可能快的跑起来。Spring 应用程序并且尽可能减少你的配置文件。&lt;/p&gt;
+&lt;h4 id=&quot;什么是-Spring-Boot&quot;&gt;&lt;a href=&quot;#什么是-Spring-Boot&quot; class=&quot;headerlink&quot; title=&quot;什么是 Spring Boot&quot;&gt;&lt;/a&gt;什么是 Spring Boot&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;它使用 “习惯优于配置” （项目中存在大量的配置，此外还内置一个习惯性的配置，让你无须）的理念让你的项目快速运行起来。&lt;/li&gt;
+&lt;li&gt;它并不是什么新的框架，而是默认配置了很多框架的使用方式，就像 Maven 整合了所有的 jar 包一样，Spring Boot&lt;br&gt;整合了所有框架（引自：&lt;a href=&quot;http://www.ityouknow.com/springboot/2016/01/06/springboot%28%E4%B8%80%29-%E5%85%A5%E9%97%A8%E7%AF%87.html&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;springboot(一)：入门篇——纯洁的微笑&lt;/a&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;使用-Spring-Boot-有什么好处&quot;&gt;&lt;a href=&quot;#使用-Spring-Boot-有什么好处&quot; class=&quot;headerlink&quot; title=&quot;使用 Spring Boot 有什么好处&quot;&gt;&lt;/a&gt;使用 Spring Boot 有什么好处&lt;/h4&gt;&lt;p&gt;回顾我们之前的 SSM 项目，搭建过程还是比较繁琐的，需要：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1）配置 web.xml，加载 spring 和 spring mvc&lt;/li&gt;
+&lt;li&gt;2）配置数据库连接、配置日志文件&lt;/li&gt;
+&lt;li&gt;3）配置家在配置文件的读取，开启注解&lt;/li&gt;
+&lt;li&gt;4）配置mapper文件&lt;/li&gt;
+&lt;li&gt;…..&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="IT技术" scheme="http://altctrl.cn/categories/IT%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="spring" scheme="http://altctrl.cn/tags/spring/"/>
+    
+      <category term="boot" scheme="http://altctrl.cn/tags/boot/"/>
+    
+  </entry>
   
   <entry>
     <title>Redis相关</title>
