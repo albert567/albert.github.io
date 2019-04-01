@@ -1,6 +1,6 @@
 http://altctrl.cn/springboot/
-http://altctrl.cn/Redis相关/
-http://altctrl.cn/HashMap源码篇/
-http://altctrl.cn/HttpClient工具类/
-http://altctrl.cn/JS跨域请求/
-http://altctrl.cn/git常用命令/
+http://altctrl.cn/redis/
+http://altctrl.cn/hashmap/
+http://altctrl.cn/httpclient/
+http://altctrl.cn/jscrossdomain/
+http://altctrl.cn/gitcommand/

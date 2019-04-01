@@ -55,8 +55,8 @@
   
   <entry>
     <title>Redis相关</title>
-    <link href="http://altctrl.cn/Redis%E7%9B%B8%E5%85%B3/"/>
-    <id>http://altctrl.cn/Redis相关/</id>
+    <link href="http://altctrl.cn/redis/"/>
+    <id>http://altctrl.cn/redis/</id>
     <published>2019-03-04T04:52:46.000Z</published>
     <updated>2019-03-04T06:37:10.366Z</updated>
     
@@ -79,8 +79,8 @@
   
   <entry>
     <title>HashMap源码篇</title>
-    <link href="http://altctrl.cn/HashMap%E6%BA%90%E7%A0%81%E7%AF%87/"/>
-    <id>http://altctrl.cn/HashMap源码篇/</id>
+    <link href="http://altctrl.cn/hashmap/"/>
+    <id>http://altctrl.cn/hashmap/</id>
     <published>2019-03-04T04:52:46.000Z</published>
     <updated>2019-03-08T10:12:00.339Z</updated>
     
@@ -111,8 +111,8 @@
   
   <entry>
     <title>HttpClient工具类</title>
-    <link href="http://altctrl.cn/HttpClient%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
-    <id>http://altctrl.cn/HttpClient工具类/</id>
+    <link href="http://altctrl.cn/httpclient/"/>
+    <id>http://altctrl.cn/httpclient/</id>
     <published>2019-02-28T04:52:46.000Z</published>
     <updated>2019-03-01T03:42:34.588Z</updated>
     
@@ -144,8 +144,8 @@
   
   <entry>
     <title>JS跨域请求</title>
-    <link href="http://altctrl.cn/JS%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/"/>
-    <id>http://altctrl.cn/JS跨域请求/</id>
+    <link href="http://altctrl.cn/jscrossdomain/"/>
+    <id>http://altctrl.cn/jscrossdomain/</id>
     <published>2019-02-28T04:52:46.000Z</published>
     <updated>2019-03-01T03:35:43.126Z</updated>
     
@@ -168,8 +168,8 @@
   
   <entry>
     <title>git常用命令</title>
-    <link href="http://altctrl.cn/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
-    <id>http://altctrl.cn/git常用命令/</id>
+    <link href="http://altctrl.cn/gitcommand/"/>
+    <id>http://altctrl.cn/gitcommand/</id>
     <published>2019-02-27T04:52:46.000Z</published>
     <updated>2019-03-01T03:17:12.159Z</updated>
     
